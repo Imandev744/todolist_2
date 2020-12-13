@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -47,13 +48,22 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        //
+//        return view('tasks.edit',compact('task'));
+        return view('tasks.edit')->withTask($task);
     }
 
 
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+      $task->update($request->validated());
+//      $task=$this->update([
+//          'title'=> $request->get('title'),
+//          'done'=>$request->get('done')
+//      ]);
+//      $task->update($request->all());
+//
+      return redirect()->action('TaskController@index')
+          ->with('status','با موفقیت بروزرسانی شد');
     }
 
 
