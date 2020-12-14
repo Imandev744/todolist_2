@@ -18,4 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('tasks', 'TaskController');
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::get('register', 'AuthController@showRegister');
+    Route::post('register', 'AuthController@register')->name('register');
+});
+
+Route::group([
+    'middleware' => 'auth'
+], function () {
+    Route::resource('tasks', 'TaskController');
+});
+
+//Route::resource('tasks', 'TaskController');
