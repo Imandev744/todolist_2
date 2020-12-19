@@ -19,10 +19,13 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{$task->title}}</h5>
+                    <a href="{{route('tasks.show',$task)}}" class="btn btn-warning"> مشاهده یادداشت ها   </a> <br>
                     <span class="badge badge-primary">{{$task->done ? 'انجام شده ' : 'انجام نشده' }}</span>
                 </div>
                 <div class="card-footer ">
+
                     <a href="{{route('tasks.edit',$task)}}" class="btn btn-success">ویرایش</a>
+
                     <a href="{{route('tasks.delete',$task)}}" class="btn btn-danger">حذف با get</a>
 
 

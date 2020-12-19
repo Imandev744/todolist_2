@@ -43,7 +43,9 @@ class TaskController extends Controller
     public function show(Task $task)
     {
        if($task->user_id == auth()->id())
-           return $task;
+//           dd($task);
+           return view('tasks.show')
+               ->with('task',$task);
        else
            return abort(404);
     }
