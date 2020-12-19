@@ -32,7 +32,7 @@ class AuthController extends Controller
     }
     public function login(LoginRequest $request)
     {
-        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')]))
+        if ($this->attempt($request->get('email'), $request->get('password')))
             return redirect()->route('tasks.index');//TODO: redirect to dashboard
         else
             return redirect()->back()->with('error','نام کاربری یا کلمه عبور صحیح نیست ! ');//TODO: show message
@@ -44,6 +44,11 @@ class AuthController extends Controller
             auth()->logout();
             return redirect()->route('login');
         }
+    }
+
+    public function attempt($email,$password): bool
+    {
+        return Auth::attempt(['email'=>$email,'password'=>$password]);
     }
 
 }
