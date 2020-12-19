@@ -16,18 +16,70 @@
 
 
         @forelse($tasks as $index => $task)
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{$task->title}}</h5>
-                <span class="badge badge-primary">{{$task->done ? 'انجام شده ' : 'انجام نشده' }}</span>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{$task->title}}</h5>
+                    <span class="badge badge-primary">{{$task->done ? 'انجام شده ' : 'انجام نشده' }}</span>
+                </div>
+                <div class="card-footer ">
+                    <a href="{{route('tasks.edit',$task)}}" class="btn btn-success">ویرایش</a>
+                    <a href="{{route('tasks.delete',$task)}}" class="btn btn-danger">حذف با get</a>
+
+
+                    <form action="{{route('tasks.destroy',$task)}}" method="post" id="delete-form">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-warning">با متد deleteحذف</button>
+                        <button class="btn btn-primary" onclick="return confirm ('آیا مطمین هستید ؟')">حذف با اخطار
+                        </button>
+{{--                        <button class="btn btn-info" type="submit">خذف با اختیار با JQuery</button>--}}
+
+                    </form>
+
+                </div>
             </div>
-            <div class="card-footer ">
-                <a href="{{route('tasks.edit',$task)}}" class="btn btn-success">ویرایش</a>
-                <a href="{{route('tasks.delete',$task)}}" class="btn btn-danger">حذف</a>
-            </div>
-        </div>
         @empty
             <div class="alert alert-info">شما هنوز هیچ کاری اضافه نکرده ایید</div>
         @endforelse
     </div>
+@endsection
+
+
+@section('js')
+
+    {{--    <script >--}}
+    {{--        $('#delete-form').submit(function (event){--}}
+    {{--            event.preventDefault()--}}
+    {{--           alert('delete with jq ? ')--}}
+    {{--        });--}}
+
+    {{--    </script>--}}
+
+
+
+{{--    <script>--}}
+{{--        $('#delete-form').submit(function (event) {--}}
+{{--            event.preventDefault()--}}
+
+{{--            let ok = confirm('are you sure ? ')--}}
+{{--            if (ok) {--}}
+{{--                $.ajaxSetup({--}}
+{{--                    headers: {--}}
+{{--                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            }--}}
+{{--            if (ok) {--}}
+{{--                $.ajax({--}}
+{{--                    'type ': "delete",--}}
+{{--                    'url': '{{route('tasks.destroy',$task)}}'--}}
+{{--                }).done(function () {--}}
+{{--                    location.reload();--}}
+{{--                })--}}
+
+{{--            }--}}
+{{--        });--}}
+
+{{--    </script>--}}
 @endsection
