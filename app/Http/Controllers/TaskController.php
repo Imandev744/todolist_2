@@ -12,7 +12,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks=Task::all();
+        $tasks=auth()->user()->tasks;
 
         return view('tasks.index')->withTasks($tasks);
     }
@@ -28,8 +28,8 @@ class TaskController extends Controller
     {
 //        $task= auth()->user()->tasks()->create($request->all());
 
-        $task=Task::create([
-            'user_id'=>1,
+        $task=auth()->user()->tasks()->create([
+
             'title'=>$request->title,
             'done'=>$request->get('done',false)
 
@@ -42,28 +42,36 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-
+       if($task->user_id == auth()->id())
+           return $task;
+       else
+           return abort(404);
     }
 
 
     public function edit(Task $task)
     {
-//        return view('tasks.edit',compact('task'));
+//        return view('tasks.edit',compact('task'))
         return view('tasks.edit')->withTask($task);
     }
 
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-      $task->update($request->validated());
+            if($task->user_id != auth()->id())
+                return abort(404);
+            else
+        $task->update($request->validated());
+        return redirect()->action('TaskController@index')
+            ->with('status','با موفقیت بروزرسانی شد');
+
 //      $task=$this->update([
 //          'title'=> $request->get('title'),
 //          'done'=>$request->get('done')
 //      ]);
 //      $task->update($request->all());
-//
-      return redirect()->action('TaskController@index')
-          ->with('status','با موفقیت بروزرسانی شد');
+
+
     }
 
     public function destroy(Task $task)
