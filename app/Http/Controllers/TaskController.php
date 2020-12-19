@@ -66,6 +66,14 @@ class TaskController extends Controller
           ->with('status','با موفقیت بروزرسانی شد');
     }
 
+    public function delete(Task $task)
+    {
+//         dd($task);
+        $task->delete();
+        return redirect()->action('TaskController@index')
+            ->with('status','حذف با موفقیت انجام شد');
+    }
+
 
     public function destroy(Task $task)
     {

@@ -36,6 +36,7 @@ Route::group([
     'middleware' => 'auth'
 ], function () {
     Route::resource('tasks', 'TaskController');
+    Route::get('tasks/{task}/delete','TaskController@delete')->name('tasks.delete');
 });
 
 //Route::resource('tasks', 'TaskController');

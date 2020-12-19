@@ -23,6 +23,7 @@
             </div>
             <div class="card-footer ">
                 <a href="{{route('tasks.edit',$task)}}" class="btn btn-success">ویرایش</a>
+                <a href="{{route('tasks.delete',$task)}}" class="btn btn-danger">حذف</a>
             </div>
         </div>
         @empty
