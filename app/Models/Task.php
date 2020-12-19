@@ -15,6 +15,10 @@ class Task extends Model
         'title',
         'done'
     ];
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
 
 
     public function user()
