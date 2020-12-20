@@ -38,17 +38,16 @@ Route::group([
     Route::resource('tasks', 'TaskController');
     Route::get('tasks/{task}/delete','TaskController@delete')->name('tasks.delete');
 
+    Route::post('tasks/{task}/done','DoneTaskController')->name('tasks.done');
+
     Route::resource('tasks.notes','NoteController')
         ->only(['store','destroy']);
-
 //    Route::group([
 //       'prefix'=>'tasks/{task}'
 //    ],function (){
 //  Route::resource('tasks.notes','NoteController')
 //        ->only(['store','destroy']);
 //    });
-
-
 });
-
 //Route::resource('tasks', 'TaskController');
+
