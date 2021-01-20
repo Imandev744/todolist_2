@@ -24,11 +24,20 @@
                     <p class="card-text">{{$notes->text}}</p>
                 </div>
 
+                @if(is_null($note->deleted_at))
                 <div class="card-footer">
                     {!!  Form::open(['route' => ['tasks.notes.destroy',$task->id,$notes->id]  , 'method' => 'delete'])!!}
                     {!!  Form::submit('خذف')!!}
                     {!!  Form::close()!!}
                 </div>
+                @else
+                    {!!  Form::open(['route' => ['tasks.notes.destroy',$task->id,$notes->id]  , 'method' => 'delete'])!!}
+                    {!!  Form::submit('خذف')!!}
+                    {!!  Form::close()!!}
+
+                    {!!  Form::open(['route' => ['tasks.notes.destroy',$task->id,$notes->id]  , 'method' => 'delete'])!!}
+                    {!!  Form::submit('خذف')!!}
+                    {!!  Form::close()!!}
             </div>
         @empty
             <p>'هنوز یادداشتی اضافه نکرده ایید !'</p>

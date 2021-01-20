@@ -23,7 +23,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
-
     public function setPasswordAttribute($value)
     {
         $this->attributes['password']=Hash::needsRehash($value) ?  Hash::make($value) : $value ;

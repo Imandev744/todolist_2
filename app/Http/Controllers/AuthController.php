@@ -30,6 +30,7 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
     public function login(LoginRequest $request)
     {
         if ($this->attempt($request->get('email'), $request->get('password')))
