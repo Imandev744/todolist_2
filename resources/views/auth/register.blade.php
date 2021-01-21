@@ -37,6 +37,11 @@
             </div>
 
             <div class="form-group">
+                <label for="mobile">موبایل :</label>
+                <input type="text" class="form-control" id="mobile" name="mobile">
+            </div>
+
+            <div class="form-group">
                 <label for="password">پسوورد :</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
@@ -47,6 +52,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">ثبت نام</button>
+            <a href="{{route('login')}}" class="btn btn-warning">صفحه ورود </a>
 
         </form>
 

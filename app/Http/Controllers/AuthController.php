@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if ($this->attempt($request->get('email'), $request->get('password')))
+        if ($this->attempt($request->get('username'), $request->get('password')))
             return redirect()->route('tasks.index');//TODO: redirect to dashboard
         else
             return redirect()->back()->with('error','نام کاربری یا کلمه عبور صحیح نیست ! ');//TODO: show message
@@ -47,9 +48,22 @@ class AuthController extends Controller
         }
     }
 
-    public function attempt($email,$password): bool
+    public function attempt($username,$password)
     {
-        return Auth::attempt(['email'=>$email,'password'=>$password]);
+            $user=User::query()->where(function ($q) use ($username){
+                $q->where('email' , $username)->orWhere('mobile',$username);
+            });
+
+            if($user->exists()) {
+                if(Hash::check($password,$user->first()->getAuthPassword()))
+                {
+                    Auth::login($user->first());
+                    return \auth()->check();
+                }
+
+            }
+
+            return  redirect()->route('login');
     }
 
 }
