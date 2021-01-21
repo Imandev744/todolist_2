@@ -17,28 +17,29 @@
         @endif
 
 
-        @forelse($task->notes as $index=>$notes)
+        @forelse($task->notes()->withTrashed()->get() as $index=>$notes)
 
             <div class="card-mb-4">
                 <div class="card-body">
                     <p class="card-text">{{$notes->text}}</p>
                 </div>
 
-                @if(is_null($note->deleted_at))
+                @if(is_null($notes->deleted_at))
                 <div class="card-footer">
                     {!!  Form::open(['route' => ['tasks.notes.destroy',$task->id,$notes->id]  , 'method' => 'delete'])!!}
                     {!!  Form::submit('خذف')!!}
                     {!!  Form::close()!!}
                 </div>
                 @else
-                    {!!  Form::open(['route' => ['tasks.notes.destroy',$task->id,$notes->id]  , 'method' => 'delete'])!!}
-                    {!!  Form::submit('خذف')!!}
+                    {!!  Form::open(['route' => ['tasks.notes.terminate',$task->id,$notes->id]  , 'method' => 'delete'])!!}
+                    {!!  Form::submit(' حذف کلی',['class'=>'btn btn-warning d-inline-block'])!!}
                     {!!  Form::close()!!}
 
-                    {!!  Form::open(['route' => ['tasks.notes.destroy',$task->id,$notes->id]  , 'method' => 'delete'])!!}
-                    {!!  Form::submit('خذف')!!}
+                    {!!  Form::open(['route' => ['tasks.notes.restore',$task->id,$notes->id]  , 'method' => 'post'])!!}
+                    {!!  Form::submit('بازنشانی',['class'=>'btn btn-info'])!!}
                     {!!  Form::close()!!}
             </div>
+            @endif
         @empty
             <p>'هنوز یادداشتی اضافه نکرده ایید !'</p>
         @endforelse

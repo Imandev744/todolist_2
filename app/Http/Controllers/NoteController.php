@@ -25,6 +25,7 @@ class NoteController extends Controller
     public function store(Task $task ,CreatNoteReQuest $request)
     {
             $note=$task->notes()->create($request->validated());
+
         return redirect()->route('tasks.show',$task)->withNote($note);
     }
 

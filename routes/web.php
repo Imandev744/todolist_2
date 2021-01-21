@@ -40,8 +40,16 @@ Route::group([
 
     Route::post('tasks/{task}/done','DoneTaskController')->name('tasks.done');
 
+
     Route::resource('tasks.notes','NoteController')
         ->only(['store','destroy']);
+
+    Route::post('tasks/{task}/notes/{note}/restore','NoteActionController@restore')
+        ->name('tasks.notes.restore');
+    Route::delete('tasks/{task}/notes/{note}/terminate','NoteActionController@terminate')
+        ->name('tasks.notes.terminate');
+
+
 //    Route::group([
 //       'prefix'=>'tasks/{task}'
 //    ],function (){
