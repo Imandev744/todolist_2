@@ -13,7 +13,8 @@ class Task extends Model
     protected $fillable=[
         'user_id',
         'title',
-        'done'
+        'done',
+        'date'
     ];
     public function notes()
     {

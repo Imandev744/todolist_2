@@ -19,7 +19,7 @@ class NoteActionController extends Controller
     {
 
         Note::withTrashed()->find($note)->forceDelete();
-        return $this->back($task,'یادداشت یا موفقیت بازیافت شد ');
+        return $this->back($task,'یادداشت یا موفقیت حذف شد شد ');
     }
     public function back(Task $task,$message)
     {

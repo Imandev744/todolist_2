@@ -16,7 +16,8 @@ class CreateTaskRequest extends FormRequest
     {
         return [
            'title'=>'required|string',
-            'done'=>'required|boolean'
+            'done'=>'required|boolean',
+            'altField'=>'required'
         ];
     }
 }

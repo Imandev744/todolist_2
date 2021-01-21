@@ -16,11 +16,17 @@
 
 
         @forelse($tasks as $index => $task)
+
+{{--            {{dd($task)}}--}}
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{$task->title}}</h5>
                     <a href="{{route('tasks.show',$task)}}" class="btn btn-warning"> مشاهده یادداشت ها   </a> <br>
+
                     <span class="badge badge-primary">{{$task->done ? 'انجام شده ' : 'انجام نشده' }}</span>
+
+                    <p class="card-text">{{verta($task->date)}}</p>
+
                 </div>
                 <div class="card-footer ">
 

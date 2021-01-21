@@ -29,6 +29,16 @@
                     <p class="m-0">{{$message}}</p>
                 @enderror
             </div>
+
+            <div class="form-group">
+                <label for="date">تاریخ :</label>
+                <input type="text" class="form-control" id="date"  name="date">
+                <input type="hidden" id="altField" name="altField">
+                @error('title')
+                <p class="m-0">{{$message}}</p>
+                @enderror
+            </div>
+
             <div class="form-check">
                 <input type="hidden" name="done" value="0">
                 <input type="checkbox" class="form-check-input" id="done"  name="done" value="1">
@@ -37,4 +47,15 @@
             <button type="submit" class="btn btn-primary">ارسال کار</button>
         </form>
     </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#date").pDatepicker({
+                'altField': '#altField',
+                'format': 'YYYY/MM/DD H:m'
+            });
+        });
+    </script>
 @endsection

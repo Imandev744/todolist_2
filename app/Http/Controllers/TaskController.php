@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -13,6 +14,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks=auth()->user()->tasks;
+
 
         return view('tasks.index')->withTasks($tasks);
     }
@@ -28,10 +30,14 @@ class TaskController extends Controller
     {
 //        $task= auth()->user()->tasks()->create($request->all());
 
+
+//         return $request->all();
+
         $task=auth()->user()->tasks()->create([
 
             'title'=>$request->title,
-            'done'=>$request->get('done',false)
+            'done'=>$request->get('done',false),
+            'date'=>Carbon::createFromTimestampMs($request->altField)
 
         ]);
         return redirect()->action('TaskController@index')
