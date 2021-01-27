@@ -5,7 +5,12 @@
 
         <div class="mb-4 d-flex align-items-center justify-content-between">
             <h1>لیست کارها </h1>
+
+        <div>
             <a href="{{route('tasks.create')}}" class="btn btn-primary">اضافه کردن</a>
+            <a href="{{route('tags.index')}}" class="btn btn-secondary">مدیریت تگ ها</a>
+        </div>
+
         </div>
 
         @if(session('status'))
@@ -20,7 +25,15 @@
 {{--            {{dd($task)}}--}}
             <div class="card">
                 <div class="card-body">
+                    @foreach($task->tags as $index=>$tag)
+                        <span class="badge badge-primary" style="background-color: {{$tag->color}}">{{$tag->name}}</span>
+                    @endforeach
                     <h5 class="card-title">{{$task->title}}</h5>
+
+{{--                  <p class="card-text">{{$task->tags->implode('name',',')}}</p>--}}
+
+
+
                     <a href="{{route('tasks.show',$task)}}" class="btn btn-warning"> مشاهده یادداشت ها   </a> <br>
 
                     <span class="badge badge-primary">{{$task->done ? 'انجام شده ' : 'انجام نشده' }}</span>

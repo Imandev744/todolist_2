@@ -48,7 +48,7 @@ Route::group([
         ->name('tasks.notes.restore');
     Route::delete('tasks/{task}/notes/{note}/terminate','NoteActionController@terminate')
         ->name('tasks.notes.terminate');
-
+    Route::resource('tags','TagController');
 
 //    Route::group([
 //       'prefix'=>'tasks/{task}'

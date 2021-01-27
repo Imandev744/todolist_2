@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Tag;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks=auth()->user()->tasks;
+        $tasks=auth()->user()->tasks()->latest()->get();
 
 
         return view('tasks.index')->withTasks($tasks);
@@ -22,7 +23,8 @@ class TaskController extends Controller
 
     public function create()
     {
-        return view('tasks.create');
+        $tags=Tag::all()->pluck('name','id');
+        return view('tasks.create',compact('tags'));
     }
 
 
@@ -33,6 +35,12 @@ class TaskController extends Controller
 
 //         return $request->all();
 
+        /**
+         *
+         *
+         * @var $task Task
+         *
+         */
         $task=auth()->user()->tasks()->create([
 
             'title'=>$request->title,
@@ -40,6 +48,11 @@ class TaskController extends Controller
             'date'=>Carbon::createFromTimestampMs($request->altField)
 
         ]);
+        if($request->has('tags')){
+//            $task->tags()->attach();
+            $task->tags()->sync($request->get('tags'));
+        }
+
         return redirect()->action('TaskController@index')
             ->with('status','با موفقیت انجام شد.');
 

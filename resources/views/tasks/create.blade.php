@@ -30,6 +30,16 @@
                 @enderror
             </div>
 
+
+            <div class="form-group">
+                <label for="tags">تگ ها </label>
+                <select name="tags[]" id="tags" class="custom-select" multiple>
+                    @foreach($tags as $key=>$value)
+                        <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="date">تاریخ :</label>
                 <input type="text" class="form-control" id="date"  name="date">
